@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>S + K 💙❤️</title>
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    background: black;
+    color: white;
+    font-family: Arial, sans-serif;
+    overflow-x: hidden;
+    text-align: center;
+  }
+
+  h1 {
+    text-align: center;
+    font-size: 50px;
+    margin: 20px 0;
+  }
+
+  h2 {
+    margin-top: 10px;
+  }
+
+  button {
+    margin: 10px;
+    padding: 10px 20px;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 8px;
+    border: none;
+    background: linear-gradient(45deg, #ff0000, #0000ff);
+    color: white;
+    transition: transform 0.2s;
+  }
+
+  button:hover {
+    transform: scale(1.08);
+  }
+
+  .seccion {
+    display: none;
+    text-align: center;
+    margin-top: 30px;
+    padding: 20px;
+  }
+
+  .quiz-box {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+
+  .quiz-pregunta {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+
+  .quiz-opciones {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(140px, 1fr));
+    gap: 10px;
+    max-width: 520px;
+    margin: 0 auto;
+  }
+
+  .quiz-opciones button {
+    width: 100%;
+    margin: 0;
+  }
+
+  .quiz-feedback {
+    margin-top: 20px;
+    font-size: 22px;
+    min-height: 40px;
+  }
+
+  .quiz-progreso {
+    margin-top: 10px;
+    font-size: 16px;
+    opacity: 0.85;
+  }
+
+  .lluvia {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 999;
+  }
+
+  .lluvia span {
+    position: absolute;
+    font-weight: bold;
+    white-space: nowrap;
+    font-size: 20px;
+  }
+
+  @keyframes caer {
+    0% { transform: translateY(-10%); opacity: 1; }
+    100% { transform: translateY(110vh); opacity: 0; }
+  }
+
+  @keyframes subir {
+    0% { transform: translateY(110vh); opacity: 1; }
+    100% { transform: translateY(-10%); opacity: 0; }
+  }
+
+  img {
+    margin: 10px;
+    border-radius: 12px;
+    max-width: 90%;
+    height: auto;
+  }
+
+  .carta {
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.8;
+    font-size: 18px;
+  }
+
+  .mini {
+    font-size: 15px;
+    opacity: 0.8;
+  }
+</style>
+</head>
+<body>
+
+<h1>S + K 💙❤️</h1>
+
+<button onclick="mostrarSeccion('razones')">💌 Razones</button>
+<button onclick="mostrarSeccion('quiz')">❓ Quiz</button>
+<button onclick="mostrarSeccion('lluvia')">🌧️ Lluvia</button>
+<button onclick="mostrarSeccion('carta')">📜 Carta</button>
+
+<div id="razones" class="seccion">
+  <h2>Razones por las que te amo 💙</h2>
+  <p id="textoRazon">Presiona el botón</p>
+  <button onclick="mostrarRazon()">Dame una razón</button>
+</div>
+
+<div id="quiz" class="seccion">
+  <div class="quiz-box">
+    <h2>Quiz 😈</h2>
+
+    <p id="preguntaActual" class="quiz-pregunta"></p>
+
+    <div id="opcionesQuiz" class="quiz-opciones"></div>
+
+    <p id="resultadoQuiz" class="quiz-feedback"></p>
+    <p id="progresoQuiz" class="quiz-progreso"></p>
+
+    <div id="botonesQuiz"></div>
+  </div>
+</div>
+
+<div id="lluvia" class="seccion">
+  <h2>Lluvia de amor 💙❤️</h2>
+  <button onclick="crearLluvia()">Activar lluvia</button>
+  <div class="lluvia" id="contenedorLluvia"></div>
+</div>
+
+<div id="carta" class="seccion">
+  <h2>Carta 💌</h2>
+  <div class="carta">
+    <p>
+      ERROR<br><br>
+      N*1004<br>
+      esta pagina se desbloqueara el 10 de abril a la hora que te convertiste en el amor de mi vida<br><br>
+      ( 6 - 6:30 PM) <br><br>
+    </p>
+
+  </div>
+</div>
+
+<script>
+/* =========================
+   MOSTRAR SECCIONES
+========================= */
+function mostrarSeccion(id) {
+  const secciones = ["razones", "quiz", "lluvia", "carta"];
+  secciones.forEach(sec => {
+    const elemento = document.getElementById(sec);
+    if (elemento) elemento.style.display = "none";
+  });
+
+  document.getElementById(id).style.display = "block";
+
+  if (id === "quiz") {
+    iniciarQuiz();
+  }
+}
+
+/* =========================
+   RAZONES RANDOM
+========================= */
+const razones = [
+"Pol tu humor 💓💝💖💘",
+"Pol como me amas 💓💝💖💘💗",
+"Pol tu personalidad 💓💖💝💘",
+"Pol tu carita peshosha 💓💝❣️💘💗",
+"Pol nuestra relación 💗💗",
+"Pol nuestros futuros hijitos 💝💝💘",
+"Pol tus ojitos 💝💝💖",
+"Pol tus cachetitos peshoshos 💝💝💕🩷",
+"Pol tu pelito 💞💗💘🩷💝",
+"Pol tus manitos 💞💕💘💘💗💝",
+"Pol tus uñitas originales 👌💓💖❣️💝🩷",
+"Pol nuestra cashitaaaa 💞💓🩷💗💕💝💝",
+"Pala estar siempre juntitosh ❣️💝💘💕💞💕",
+"Pala mimir juntitosh ❣️🩷💝🩷 ",
+"Pala cocinar juntitoshhhh (y que se nos queme) 💖💓🩷💗💝❣️",
+"Pala darnos besitos tooodos los diash 💘💞❣️💕💝💖💗",
+"Pala ver esa peshosha carita Pol siempre 💓🩷💗💘💖💞",
+"Pala que seas toda mía 😠💕💝❣️💓🩷💗",
+"Pala cumplir nuestros sueños juntitosh (tu eles mi sueño) 💖💘💞💗💝❣️💗🩷",
+"Pol como me tratashh 💕🩷💓💗💘💞💗❣️",
+"Pol como desmuestras tu amoll 💖❣️💝💗🩷💓💞",
+"Pala ir de compras juntitoshh 💕💞💘❣️🩷",
+"Pala tener a nuestros gatitoshhh 💗💗💗",
+"Pala tener a nuestro pelitooo 💖💗💗💗",
+"Pala tener nuestro conejitooooooo 💝💓💗💕💖💞🩷💞",
+"Pala siemple amarte mash 😝💘💞❣️🩷💝",
+"Pala que nunca mash estés soltera 💗💓💝💕💖💝",
+"Pala que nunca mash te sientas solita 💘💝💞🩷💗",
+"Pala apoyarte apesar de tooolo ❣️💓💗💕🩷💖💞",
+"Pala tar juntitos Pol siempleeee 💘💝💞❣️💖❣️🩷",
+"Pala estar con Tigo en las guenas y en las malash 💓🩷💗💝💞🩷💖",
+"Pala tener unos hijitos tan  preciosos como túuu 💕💘💖❣️💖💓💝💞",
+"Pala comer juntitosh 💗🩷💞💘💝❣️",
+"Pala ver series juntitoshhh 💕💖❣️💗🩷💘",
+"Pala que me obliges a ver k dramash jijiji 💓💞💘💕🩷",
+"Pala que me obliges a vel stranger thingsss 💝🩷💖💕💗",
+"Pala ver películas juntitos ❣️💓💗💘💕",
+"Pala comer cereal quemadoooo 💞💝💕💖💘💖",
+"Pala tener una lista de mi ortografía en la nevera 🩷❣️💖💗💘💞",
+"Pala darte muchos regalitos 💓💝💞❣️💖",
+"Pala pasar este y muchos días juntitosh 💕🩷💖💓💝",
+"Pala pasar muchos años juntitosh 💗💘💝❣️💓🩷🩷",
+"Pala jugar juntitosh ❣️💝💓💗 ",
+"Pala poder abrazarte tooodos los diash 💞💕💗💘❣️",
+"Pala pelear como Shi fuéramos bebesh jijiji 👉👈💕💞💗❣️",
+"Pala que hagas un muro de peluches 💖🩷💝💓 💗💕 ",
+"Pala tener muchas fotitos juntosss 💖🩷💕💘❣️",
+"Pala viajar Pol muuuuchas partessss 💝💓❣️💞💖",
+"Pala jugar con nuestros hijutoshhh 💗🩷💖💘💓❣️",
+"Pala que cuando me despierte dentro de unos años me de cuenta que soy la persona mash afortunada del mundo Pol estar con Tigo y nuestros hijos 💕💝❣️💗💖",
+"Pala que mis hijos nunca digan que somos una mala familia 💞🩷💖💕💝💝",
+"Pala decorar nuestra casita de hello Kittyyyyy 💘💓💝💗💕💞",
+"Pala escuchar musiquita juntitos ❣️💞🩷💓💝",
+"Pala darte muuuchas cositas de hello Kitty 💖💝💘💓❣️💞",
+"Pala que siempre que vea algo de hello Kitty me acuerde de tii 💗💕💞💖❣️💝",
+"Pala que me obliges a escuchar black pink 🩷💘💝❣️💞💞",
+"Pala que tengamos muchos días gonitos 💓💗💞💖❣️💘💘",
+"Pala que siemple vea algo de black pink me acuerde de tii 💕🩷💘💝❣️💗",
+"Pala selevrar nuestros logros juntitos 💓💞💗💕❣️🩷",
+"Pala hacer muchas cosas juntitos 💖🩷💘💓❣️💗💗",
+"Pala conseguir nuestros logros como un equipo 💝💞💗💖❣️🩷",
+"Pala ser un equipo Pol siempleeee 💕💘🩷💝❣️💖",
+"Pala aprender cosas juntitos 💓💞💖💘🩷",
+"Pala darle besitos a esos peshoshosh labiesitosh todos los días 🫦💗💕🩷❣️💖💓",
+"Pala que cuando sigamos frío nos demos un abrazototototeeee 💞💓💘💓💘💖❣️🩷",
+"Pala reírnos de muchas cosas juntitoshhh 💝🩷💗❣️💞💓💘",
+"pala siemple tal juntitosh 💖💕💝💗💓💞",
+"Pala hacer muchas actividades juntitos ❣️🩷💘💞💕💝",
+"Pala probar muchos jueguitoshh 💖💗💝💓🩷🩷",
+"Pala hacer retos de actuaciónnn ❣️🩷💘💕💗",
+"Pala ayudarte a que seas la mejol actriz 💞💖💗💓❣️💘",
+"Pala motivarme cada día a ser un mejor novio 💝🩷💘💖",
+"Pala que nos enredemos 'ayudando' a hacer la tarea de nuestros hijitosh jsjsjsjjs 💕💞💖💗💘❣️🩷",
+"Pala que tengas muchos peluches y que hagas un muro de peluches cuando estés 'enojada' con Milo 💓💝🩷💞❣️💗💗",
+"Pala hacer una fortaleza supel fuelteee 💕💖💗💓🩷🩷",
+"Pala estar super feliz es cuando compremos nuestra primera casita 💘💝🩷❣️🩷💖💗💗",
+"Pala casarnos y tener el día mash feliz de mi vidaaa 💞💕💗💓❣️🩷🩷",
+"Pala estar con Tigo cuando nascan nuestros hijitosh 💘💝🩷💖💕💗",
+"Pala que seamos una familia supel gonitaaa 💞💓💗💓💕💝",
+"Pala que apenas podamos nos vallamos a vivil juntitoshhh 🩷💖💗💓💞💘",
+"Pala que mi vida sea la vida mash feliz que me pueda imaginar ❣️💝💘🩷💞💖💗",
+"Pala estar con el amor de mi vida Pol siempleee (tu) 💕💓💗❣️💖💘💞🩷",
+"Pala que a un que estemos viejitos y arrugaditosh nos amenos como el primer día 💝💓💞❣️💖",
+"Pala poder superar todos esos momentos malos que tengamos y seguir amandonos cada día másh 💓💗💞❣️💖💘🩷",
+"Pala que siemple seamos tu y Yio Pol siempleee 💕💗💖💘❣️🩷💞💝💓",
+"Pala que hagamos haceo en la casa juntitoshh 💕💗💓❣️🩷",
+"Pala que nuestros hijos tengan una madre preciosaaaa 💖💘🩷💝❣️💝💓",
+"Pala poder ir a muchas partes juntitos 💞💓💝💕💗💝💞💘",
+"Pala ir a el cine juntitoshhh 💖🩷💘💓💞💗💗",
+"Pala verte feliz siemple 💝💘🩷❣️💞💕💗",
+"Pala que cuando estés mal te desahogas con Migo 🥺💓💗💞❣️",
+"Pala hacerte sentir mejol cuando pueda 💝💖💘💕💕",
+"Pala ayudarte en tooodo lo que necesitesh 🩷💓💕💗💘💞💖💝",
+"Pol tu forma de vestirrr ❣️💗💞💝💝",
+"Pala amarnos igual apesar de la distancia 🩷💓💝💘💞❣️",
+"Pala que plontito de vuelva a ver y ño volvernos a separar 💕💖❣️🩷💞💓💝",
+"Pala tener una casita como la de blueyyy 💗💘💝💕💓❣️🩷🩷",
+"Pala ser el hombre más feliz de el mundo Pol siempleee 💖💞🩷❣️💝💕",
+"Pala que seas mi pinseshita Pol siempleee 💗💘💕💓💝💖❣️💖❣️"
+];
+
+function mostrarRazon() {
+  const random = Math.floor(Math.random() * razones.length);
+  document.getElementById("textoRazon").innerText = razones[random];
+}
+
+/* =========================
+   QUIZ
+========================= */
+const preguntas = [
+  {
+    pregunta: "¿Cuál es mi comida favorita?",
+    opciones: ["arroz chino", "mani", "pizza", "Arroz con pollo"],
+    correcta: 0,
+    mensajeCorrecto: "ñooooo, mi comida fav eres tú bebe GLLL JKJSKAJSKSJKASJKJKSJA"
+  },
+  {
+    pregunta: "¿Cuando te conoci?(y quede flechadisimo de ti)muejejeej",
+    opciones: ["10 de abril" , "28 de febrero", "21 de marzo", "21 de mayo"],
+    correcta: 1,
+    mensajeCorrecto: "SHIIIIII 28 de febreroo, el día que me robaste el corazón 💙❤️"
+  },
+  {
+    pregunta: "¿A que pareja dijiste que nos pareciamos por primera vez?",
+    opciones: ["azul y rojo", "zai zai y rang rang", "hello kity y batman", "hello kity y spiderman"],
+    correcta: 2,
+    mensajeCorrecto: "SHII hello kity y spiderman SHI somosh SHI SOMOSHH"
+  },
+  {
+    pregunta: "¿donde fue nuestro primer pico?",
+    opciones: ["en la biblioteca", "en la capilla", "alfrente de tu salon", "en la salida"],
+    correcta: 2,
+    mensajeCorrecto: "shiiiii, alfrente de tu salon, el lugar donde me enamore de ti por completo 💙❤️"
+  },
+  {
+    pregunta: "¿cual es la primera serie que nos veremos cuando vivamos juntitos?",
+    opciones: ["death note", "When I Fly Towards You", "vinland saga", "el juego de el calamar"],
+    correcta: 1,
+    mensajeCorrecto: "SHIII, tu me obligarash a vel cuando vuelo hacia tiii"
+  }
+];
+
+const mensajesIncorrectos = [
+  "Ñooo, te fuiste por otro lado 😭",
+  "ay ño amol esha ño 😔",
+  "Cashi, pelo ño era esa",
+  "Ñop, como ño vash a sabel?😭",
+  "Nel, mu mal mu mal mu mal",
+  "ñopiii, ota veshh",
+  "ñopi, esha ño elaa"
+];
+
+let preguntaActual = 0;
+
+function iniciarQuiz() {
+  preguntaActual = 0;
+  mostrarPregunta();
+}
+
+function mostrarPregunta() {
+  const pregunta = preguntas[preguntaActual];
+  const contenedorOpciones = document.getElementById("opcionesQuiz");
+  const textoPregunta = document.getElementById("preguntaActual");
+  const resultado = document.getElementById("resultadoQuiz");
+  const progreso = document.getElementById("progresoQuiz");
+  const botones = document.getElementById("botonesQuiz");
+
+  resultado.innerText = "";
+  botones.innerHTML = "";
+
+  textoPregunta.innerText = pregunta.pregunta;
+  progreso.innerText = `Pregunta ${preguntaActual + 1} de ${preguntas.length}`;
+
+  contenedorOpciones.innerHTML = "";
+
+  pregunta.opciones.forEach((opcion, index) => {
+    const btn = document.createElement("button");
+    btn.innerText = opcion;
+    btn.onclick = () => responderQuiz(index);
+    contenedorOpciones.appendChild(btn);
+  });
+}
+
+function responderQuiz(indiceElegido) {
+  const pregunta = preguntas[preguntaActual];
+  const resultado = document.getElementById("resultadoQuiz");
+  const botones = document.getElementById("botonesQuiz");
+
+  botones.innerHTML = "";
+
+  if (indiceElegido === pregunta.correcta) {
+    // ✅ CORRECTA
+    const mensaje = pregunta.mensajeCorrecto;
+    resultado.innerText = mensaje;
+
+    const btnContinuar = document.createElement("button");
+    btnContinuar.innerText = (preguntaActual === preguntas.length - 1) ? "Ver felicitaciones 🎉" : "Continuar";
+    btnContinuar.onclick = siguientePregunta;
+    botones.appendChild(btnContinuar);
+
+  } else {
+    // ❌ INCORRECTA
+    const mensaje = mensajesIncorrectos[Math.floor(Math.random() * mensajesIncorrectos.length)];
+    resultado.innerText = mensaje;
+
+    const btnRepetir = document.createElement("button");
+    btnRepetir.innerText = "Repetir";
+    btnRepetir.onclick = mostrarPregunta;
+    botones.appendChild(btnRepetir);
+  }
+}
+
+function siguientePregunta() {
+  if (preguntaActual < preguntas.length - 1) {
+    preguntaActual++;
+    mostrarPregunta();
+  } else {
+    mostrarFelicitaciones();
+  }
+}
+
+function mostrarFelicitaciones() {
+  const contenedorOpciones = document.getElementById("opcionesQuiz");
+  const textoPregunta = document.getElementById("preguntaActual");
+  const resultado = document.getElementById("resultadoQuiz");
+  const progreso = document.getElementById("progresoQuiz");
+  const botones = document.getElementById("botonesQuiz");
+
+  textoPregunta.innerText = "¡Terminaste el quiz! 🎉";
+  contenedorOpciones.innerHTML = "";
+  resultado.innerText = "shiii, lo hiciste increíble mi vidaa ️💙❤️";
+  progreso.innerText = "";
+
+  botones.innerHTML = "";
+
+  const btnReiniciar = document.createElement("button");
+  btnReiniciar.innerText = "Repetir quiz";
+  btnReiniciar.onclick = iniciarQuiz;
+  botones.appendChild(btnReiniciar);
+}
+/* =========================
+   LLUVIA SOLO AL BOTÓN
+========================= */
+function crearLluvia() {
+  const contenedor = document.getElementById("contenedorLluvia");
+
+  for (let i = 0; i < 20; i++) {
+    const palabra = document.createElement("span");
+    palabra.innerText = "te amo";
+    palabra.style.left = Math.random() * window.innerWidth + "px";
+    palabra.style.color = Math.random() < 0.5 ? "red" : "blue";
+    palabra.style.fontSize = (Math.random() * 25 + 15) + "px";
+    palabra.style.animationDuration = (Math.random() * 5 + 3) + "s";
+    palabra.style.animationName = Math.random() < 0.5 ? "caer" : "subir";
+    palabra.style.animationTimingFunction = "linear";
+    palabra.style.animationFillMode = "forwards";
+
+    palabra.addEventListener("animationend", () => palabra.remove());
+    contenedor.appendChild(palabra);
+  }
+}
+
+/* =========================
+   INICIO
+========================= */
+mostrarSeccion("razones");
+</script>
+
+</body>
+</html>
